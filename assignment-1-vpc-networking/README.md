@@ -188,21 +188,48 @@ ping google.com → Successful
 ---
 
 ## Screenshots
+### VPC Overview
+![VPC Overview](screenshots/vpc-overview.png)
 
-Place screenshots in `/screenshots` folder:
+### CIDR Block
+![CIDR Block](screenshots/vpc-cidr-block.png)
 
-* VPC Overview
-* Public Subnet
-* Private Subnet
-* Internet Gateway
-* NAT Gateway
-* Route Tables
-* Security Groups
-* Public EC2
-* Private EC2
-* Apache Running
-* Website Working
-* SSH Connection
+### Public Subnet & Private Subnet
+![Subnets](screenshots/public-private-subnet.png)
+
+### Internet Gateway
+![Internet Gateway](screenshots/internet-gateway-created.png)
+
+### NAT Gateway
+![NAT Gateway](screenshots/nat-gateway-active.png)
+
+### Route Tables (Public & Private)
+![Public Route Table](screenshots/public-route-table.png)
+![Private Route Table](screenshots/private-route-table.png)
+
+### Security Group
+![Security Group](screenshots/public-security-group.png)
+
+### EC2 Instance (Public)
+![Public EC2](screenshots/public-ec2-instance.png)
+
+### SSH Public EC2
+![SSH Public](screenshots/ssh-public-ec2.png)
+
+### SSH Private EC2 (Bastion Host)
+![SSH Private](screenshots/ssh-private-ec2-bastion.png)
+
+### Website Working (HTTP)
+![Website](screenshots/website-browser-http.png)
+
+### Curl Test
+![Curl Output](screenshots/curl-localhost-output.png)
+
+### Apache Running
+![Apache Running](screenshots/apache-running.png)
+
+### NAT Internet Test
+![NAT Test](screenshots/nat-ping-google-success.png)
 
 ---
 
