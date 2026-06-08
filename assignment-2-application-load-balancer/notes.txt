@@ -1,0 +1,117 @@
+AWS ALB + Auto Scaling Group Project - Notes
+
+------------------------------------------------------------
+1. Project Overview
+------------------------------------------------------------
+This project demonstrates a scalable and highly available web application architecture using AWS services:
+
+- EC2 (Amazon Linux 2023)
+- Application Load Balancer (ALB)
+- Auto Scaling Group (ASG)
+- Target Groups
+- Security Groups
+- Route 53 (DNS configuration - optional)
+- ACM (SSL certificate - attempted)
+
+Architecture flow:
+User → ALB → Target Group → Auto Scaling Group → EC2 Instances
+
+------------------------------------------------------------
+2. Route 53 DNS Configuration
+------------------------------------------------------------
+A Route 53 hosted zone was created for the project.
+
+An ALIAS record was configured:
+
+- Record Type: A (Alias)
+- Name: my-alb-demo-lab.com
+- Target: Application Load Balancer DNS name
+
+This allows domain traffic to be routed directly to the ALB.
+
+However, DNS propagation did not fully resolve due to missing public domain delegation.
+
+------------------------------------------------------------
+3. Domain & Cloudflare Limitation
+------------------------------------------------------------
+A real public domain was NOT used for this project.
+
+- No domain was purchased or registered in Route 53
+- Cloudflare was not used for DNS management
+- The domain used was only for testing purposes inside AWS Route 53
+
+Because of this:
+
+- Route 53 hosted zone exists
+- But the domain is not publicly resolvable on the internet
+- DNS queries may return NXDOMAIN
+
+This is expected behavior in lab environments without real domain registration.
+
+------------------------------------------------------------
+4. ACM (SSL Certificate Issue)
+------------------------------------------------------------
+An SSL certificate was requested using AWS Certificate Manager (ACM):
+
+- Domain: my-alb-demo-lab.com
+- Validation method: DNS validation
+
+Status:
+- Pending validation / not fully issued
+
+Issue:
+- Domain is not publicly registered or delegated to Route 53
+- Therefore ACM validation CNAME records cannot be verified externally
+
+Result:
+- HTTPS setup could not be fully completed
+
+------------------------------------------------------------
+5. Issues Faced During Project
+------------------------------------------------------------
+
+1. Health Check Issues:
+   - Instances initially showed "unhealthy"
+   - Root cause: incorrect or missing Apache installation in user-data
+   - Fix: corrected user-data script and recreated instances
+
+2. Launch Template Issue:
+   - AMI was not initially selected
+   - Caused ASG failure
+   - Fix: recreated launch template with Amazon Linux 2023 AMI
+
+3. Pre-commit Git Error:
+   - ".pre-commit-config.yaml is not a file"
+   - Blocked Git commits
+   - Fix: bypassed commit using --no-verify
+
+4. DNS Resolution Issue:
+   - Route 53 record created but domain not resolving publicly
+   - Cause: no real domain registration / no delegation from registrar
+
+------------------------------------------------------------
+6. Final Status
+------------------------------------------------------------
+- ALB: Working
+- Target Group: Healthy (2/2 instances)
+- Auto Scaling Group: Active and scaling correctly
+- EC2 Instances: Running in multiple AZs
+- Route 53: Configured (internal lab only)
+- HTTPS (ACM): Not fully implemented due to domain limitation
+
+------------------------------------------------------------
+7. Key Learnings
+------------------------------------------------------------
+- How ALB distributes traffic across multiple EC2 instances
+- Auto Scaling ensures high availability and self-healing
+- Importance of correct AMI in launch templates
+- Security group design between ALB and EC2
+- DNS requires real domain delegation for public access
+- ACM requires valid domain ownership for certificate issuance
+
+------------------------------------------------------------
+8. Conclusion
+------------------------------------------------------------
+This project successfully demonstrates AWS scalability and load balancing concepts.
+However, full production-grade DNS and HTTPS setup requires a real registered domain
+and proper DNS delegation (e.g., Route 53 registrar or external provider like Cloudflare).
