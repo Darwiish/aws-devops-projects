@@ -17,19 +17,16 @@ This project demonstrates a highly available and scalable web application archit
 ## Architecture
 
 ```text
-Internet User
+
+Internet
+   ↓ (port 80/443)
+Route 53 (DNS routing)
    ↓
-Route 53 (Optional - DNS)
-   ↓
-AWS Certificate Manager (ACM - HTTPS SSL)
-   ↓
-Application Load Balancer (ALB)
+ALB (with ACM SSL cert attached, behind ALB SG)
    ↓
 Target Group
    ↓
-Auto Scaling Group (ASG)
-   ↓
-EC2 Instances (Multi-AZ)
+EC2 Instances in ASG (protected by EC2 SG)
    ├── EC2 Instance 1 (AZ-1)
    └── EC2 Instance 2 (AZ-2)
 ```
