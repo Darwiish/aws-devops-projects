@@ -177,8 +177,7 @@ A Route 53 hosted zone was created for:
 ![EC2 Instances](screenshots/ec2.png)
 
 ### Browser Test (ALB DNS)
-[Watch Demo Video](screenshots/alb-demo.mp4)
-
+▶️ Watch Demo Video: [Click here](screenshots/alb-demo.mp4)
 
 ---
 
