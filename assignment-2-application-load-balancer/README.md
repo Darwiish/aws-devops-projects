@@ -18,19 +18,20 @@ This project demonstrates a highly available and scalable web application archit
 
 ```text
 Internet User
-      │
-      ▼
-Application Load Balancer
-      │
-      ▼
-   Target Group
-      │
-      ▼
-Auto Scaling Group
-   ┌─────────┐
-   │ EC2 #1  │
-   │ EC2 #2  │
-   └─────────┘
+   ↓
+Route 53 (Optional - DNS)
+   ↓
+AWS Certificate Manager (ACM - HTTPS SSL)
+   ↓
+Application Load Balancer (ALB)
+   ↓
+Target Group
+   ↓
+Auto Scaling Group (ASG)
+   ↓
+EC2 Instances (Multi-AZ)
+   ├── EC2 Instance 1 (AZ-1)
+   └── EC2 Instance 2 (AZ-2)
 ```
 ---
 
