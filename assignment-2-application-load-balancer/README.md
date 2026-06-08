@@ -162,6 +162,9 @@ A Route 53 hosted zone was created for:
 
 ## Screenshots
 
+### AWS Architecture Diagram
+![AWS Architecture Diagram](screenshots/AWS_Architecture_Diagram.png)
+
 ### Application Load Balancer (ALB)
 ![Application Load Balancer](screenshots/alb.png)
 
