@@ -17,15 +17,52 @@ The solution hosts a static website in Amazon S3, distributes content globally t
 ## Architecture
 
 ```text
-Internet
-   ↓
-Cloudflare DNS
-   ↓
-CloudFront CDN
-   ↓
-Amazon S3 Static Website
+                        ┌──────────────────────┐
+                        │       Internet       │
+                        └─────────┬────────────┘
+                                  │
+                                  ▼
+                        ┌──────────────────────┐
+                        │    Cloudflare DNS    │
+                        │  (Custom Domain)     │
+                        └─────────┬────────────┘
+                                  │
+                                  ▼
+                 ┌────────────────────────────────┐
+                 │     Amazon CloudFront CDN      │
+                 │  - Global edge caching         │
+                 │  - HTTPS via ACM certificate   │
+                 └─────────┬──────────────────────┘
+                           │
+            ┌──────────────┴──────────────┐
+            │                             │
+            ▼                             ▼
+┌──────────────────────┐     ┌────────────────────────┐
+│   CloudFront Cache   │     │ AWS Certificate Manager │
+│   (Edge Locations)   │     │ (SSL/TLS HTTPS)        │
+└─────────┬────────────┘     └────────────────────────┘
+          │
+          ▼
+┌──────────────────────────────────────────┐
+│           Amazon S3 Bucket               │
+│  - Static Website Hosting               │
+│  - index.html / error.html             │
+│  - Origin for CloudFront               │
+└──────────────────────────────────────────┘
+          ▲
+          │
+          │
+┌──────────────────────────────────────────┐
+│         GitHub Actions CI/CD            │
+│  - Deploys files to S3                  │
+│  - Triggers CloudFront invalidation     │
+└──────────────────────────────────────────┘
+          ▲
+          │
+┌──────────────────────┐
+│        Git Push      │
+└──────────────────────┘
 ```
-
 ---
 
 ## AWS Services Used
