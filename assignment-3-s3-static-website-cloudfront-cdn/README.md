@@ -493,10 +493,6 @@ CloudFront cached previous content.
 
 ![GitHub Actions Workflow](./screenshots/github-actions-workflow.png)
 
-### GitHub Actions Deployment Success
-
-![GitHub Actions Success](./screenshots/github-actions-success.png)
-
 ### IAM User Permissions
 
 ![IAM User Permissions](./screenshots/iam-user-permissions.png)
